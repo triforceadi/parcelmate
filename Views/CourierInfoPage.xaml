@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="parcelmate.Views.CourierInfoPage"
+             xmlns:vm="clr-namespace:parcelmate.ViewModels"
+             Title="Courier Info">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#FFFFFF</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,60,0,0" VerticalOptions="FillAndExpand">
+                    <Image Source="parcelmate_courier.jpg" 
+                           VerticalOptions="Fill" 
+                           HorizontalOptions="Fill" 
+                           Aspect="AspectFill" 
+                           HeightRequest="205"
+                           WidthRequest="400"
+                           />
+                </ContentView>
+            </StackLayout>
+            <StackLayout VerticalOptions="CenterAndExpand" Padding="20">
+                <StackLayout x:Name="LoginFields">
+                    <Label Text="Login" FontSize="24" HorizontalOptions="CenterAndExpand" Margin="0,0,0,20"/>
+                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
+                        <Entry Placeholder="Username" x:Name="UsernameEntry" BackgroundColor="{StaticResource Primary}" />
+                    </Frame>
+                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
+                        <Entry Placeholder="Password" x:Name="PasswordEntry" IsPassword="True" BackgroundColor="{StaticResource Primary}"/>
+                    </Frame>
+                    <Button Text="Login" Clicked="OnLoginClicked" HorizontalOptions="FillAndExpand" Margin="130,20,130,0" TextColor="White" CornerRadius="15"/>
+                </StackLayout>
+                <StackLayout x:Name="CourierDetails" IsVisible="False">
+                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
+                        <Entry Placeholder="First name" x:Name="FirstName" BackgroundColor="{StaticResource Primary}" />
+                    </Frame>
+                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
+                        <Entry Placeholder="Last name" x:Name="LastName" BackgroundColor="{StaticResource Primary}"/>
+                    </Frame>
+                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
+                        <Entry Placeholder="Age" x:Name="Age" BackgroundColor="{StaticResource Primary}"/>
+                    </Frame>
+                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
+                        <Entry Placeholder="Driver License Expiry Date" x:Name="DriverLicenseExpiryDate" BackgroundColor="{StaticResource Primary}"/>
+                    </Frame>
+                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
+                        <Entry Placeholder="Driver License Category" x:Name="DriverLicenseCategory" BackgroundColor="{StaticResource Primary}"/>
+                    </Frame>
+                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
+                        <Entry Placeholder="Are you certified?" x:Name="IsCertified" BackgroundColor="{StaticResource Primary}"/>
+                    </Frame>
+                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
+                        <Entry Placeholder="Allowed to carry dangerous goods?" x:Name="IsDangerousGoodsAllowed" BackgroundColor="{StaticResource Primary}"/>
+                    </Frame>
+                    <Button Text="Save" Clicked="OnSaveClicked" HorizontalOptions="FillAndExpand" Margin="140,20,140,0" CornerRadius="10"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</ContentPage>

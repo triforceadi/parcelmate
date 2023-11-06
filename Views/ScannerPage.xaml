@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             x:Class="parcelmate.Views.ScannerPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <!-- ZXingScannerView -->
+            <zxing:ZXingScannerView x:Name="scannerView" />
+
+            <!-- Custom Overlay -->
+            <Grid>
+                <BoxView Color="Transparent" Opacity="0.5">
+                    <BoxView.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="Android" Value="Black" />
+                            <On Platform="iOS" Value="White" />
+                        </OnPlatform>
+                    </BoxView.Color>
+                </BoxView>
+                <StackLayout VerticalOptions="Center">
+                    <Label Text="Align barcode within the frame" HorizontalOptions="Center" TextColor="White" />
+                    <Label Text="Scanning will happen automatically" HorizontalOptions="Center" TextColor="White" />
+                </StackLayout>
+                <!-- You can add more elements for customization (e.g., a red line) -->
+            </Grid>
+
+            <!-- Back Button -->
+            <Button Text="Back" Clicked="OnBackButtonClicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
