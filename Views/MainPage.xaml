@@ -38,20 +38,30 @@
                         BackgroundColor="{StaticResource Primary}"
                         TextColor="White" CornerRadius="15" />
             </StackLayout>
-            <StackLayout x:Name="HasBarcodes" Orientation="Vertical" Padding="30,1,1,1" Spacing="10">
-                <Label Text="Scanned barcodes:" TextColor="Black" FontAttributes="Bold, Italic"/>
-            </StackLayout>
+             <Label Text="Scanned Barcodes:" TextColor="Black"
+                    IsVisible="{Binding ScanResultsVisible}"
+                    FontAttributes="Bold"
+                    Margin="10,5,0,0"/>
         </StackLayout>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="15,8,15,15" Spacing="10">
-                <ListView x:Name="scanResultsListView" ItemTapped="OnTappedScannedBarcode">
+                <ListView x:Name="scanResultsListView" 
+                  HasUnevenRows="True"
+                  ItemTapped="OnTappedScannedBarcode"
+                  ItemsSource="{Binding ScanResults}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextCell Text="{Binding}" TextColor="Black">
-                                <TextCell.ContextActions>
-                                    <MenuItem Text="Remove selected barcode?" Clicked="OnTappedScannedBarcode" />
-                                </TextCell.ContextActions>
-                            </TextCell>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal" Padding="9">
+                                    <Label Text="{Binding}" VerticalOptions="CenterAndExpand" TextColor="Black" />
+                                    <Button Text="Delivered" Clicked="OnDeliveredButtonClicked"
+                                            CommandParameter="{Binding .}" CornerRadius="15"
+                                            WidthRequest="100" HeightRequest="38" BackgroundColor="Green"/>
+                                    <Button Text="Remove" Clicked="OnRemoveButtonClicked" 
+                                            CommandParameter="{Binding .}" CornerRadius="15" 
+                                            WidthRequest="85" HeightRequest="38" BackgroundColor="DarkRed"/>
+                                </StackLayout>
+                            </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

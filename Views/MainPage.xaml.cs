@@ -1,6 +1,8 @@
-﻿using System;
+﻿using parcelmate.ViewModels;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing.Net.Mobile.Forms;
@@ -55,14 +57,49 @@ namespace parcelmate.Views
                 }
             }
         }
-
         private void RemoveScannedBarcode(string barcode)
         {
-            // Remove the barcode from your collection
             if (scanResults.Contains(barcode))
             {
                 scanResults.Remove(barcode);
             }
         }
+        private async void OnDeliveredButtonClicked(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            if (button != null)
+            {
+                var itemToRemove = button.CommandParameter as string;
+                if (itemToRemove != null)
+                {
+                    var action = await DisplayActionSheet("Are you sure to mark it as delivered?", "No", "Yes");
+
+                    if (action == "Yes")
+                    {
+                        RemoveScannedBarcode(itemToRemove);
+                    }
+                }
+            }
+        }
+
+        private async void OnRemoveButtonClicked(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            if (button != null)
+            {
+                var itemToRemove = button.CommandParameter as string;
+                if (itemToRemove != null)
+                {
+                    var action = await DisplayActionSheet("Remove this barcode?", "No", "Yes");
+
+                    if (action == "Yes")
+                    {
+                        RemoveScannedBarcode(itemToRemove);
+                    }
+                }
+            }
+        }
+
+
     }
 }
