@@ -17,6 +17,7 @@ namespace parcelmate.Views
     public partial class CourierInfoPage : ContentPage
     {
         private const string IsLoggedInKey = "IsLoggedIn";
+        private AuthenticationService authService;
         public CourierInfoViewModel ViewModel
         {
             get { return (CourierInfoViewModel)BindingContext; }
@@ -26,6 +27,7 @@ namespace parcelmate.Views
         public CourierInfoPage()
         {
             InitializeComponent();
+            authService = new AuthenticationService();
             ViewModel = new CourierInfoViewModel();
             if (Preferences.Get(IsLoggedInKey, true))
             {
@@ -41,8 +43,9 @@ namespace parcelmate.Views
             string username = UsernameEntry.Text;
             string password = PasswordEntry.Text;
 
-            if (username == "admin" && password == "admin")
-               
+            bool isAuthenticated = authService.AuthenticateUser(username, password);
+
+            if (isAuthenticated)
             {
                 Preferences.Set(IsLoggedInKey, true);
                 DisplayAlert("Login", "Login successful", "OK");
