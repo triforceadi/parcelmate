@@ -396,3 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+*.class
+parcelmate.Android/obj/Debug/120/android/bin/classes/com/google/android/material/R$dimen.class
+parcelmate.Android/obj/Debug/120/android/bin/classes/com/google/android/material/R$dimen.class
+*.class
