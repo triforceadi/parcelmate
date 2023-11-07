@@ -64,7 +64,7 @@
                      <StackLayout Margin="0,0,0,0">
                         <StackLayout Orientation="Horizontal" Padding="45" HorizontalOptions="CenterAndExpand" >
                             <Button Text="Sign Out" Clicked="OnSignOutButtonClicked"  Margin="00,00,00,0" CornerRadius="15"/>
-                            <Button Text="Save" Clicked="OnSaveClicked" Margin="0,0,0,0" CornerRadius="15"/>
+                            <Button Text="Refresh" Clicked="PopulateFields" Margin="0,0,0,0" CornerRadius="15"/>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>

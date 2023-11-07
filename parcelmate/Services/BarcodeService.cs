@@ -12,8 +12,20 @@ namespace parcelmate.Services
         {
             validBarcodes = new List<string>
             {
-                "123456789",
-                "123-456-789"
+                "AWB8777633",
+                "AWB8777612",
+                "AWB125099",
+                "AWB123988",
+                "AWB123999",
+                "AWB1223399",
+                "AWB123399",
+                "AWB1523699",
+                "AWB1623499",
+                "AWB123999", 
+                "AWB12342399",
+                "AWB16453499",
+                "AWB16435399",
+                "AWB1223499",
             };
         }
 

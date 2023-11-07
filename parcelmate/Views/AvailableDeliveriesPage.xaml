@@ -34,7 +34,7 @@
                     Margin="0,0,0,0" HorizontalOptions="Center" FontSize="Small"/>
             <ScrollView Grid.Row="1">
                 <StackLayout Orientation="Vertical" Padding="15,8,15,15" Spacing="10" x:Name="AvailableBarcodes">
-                    <Label Text="Available parcels to scan:" VerticalOptions="CenterAndExpand" Margin="45,5,0,0" TextColor="Black" FontSize="Medium"/>
+                    <Label Text="Available parcels to scan:" VerticalOptions="CenterAndExpand" Margin="47,5,0,0" TextColor="Black" FontSize="Medium"/>
                     <ListView x:Name="barcodesAvailableListView" 
                   HasUnevenRows="True"
                   ItemsSource="{Binding barcodesAvailable}">

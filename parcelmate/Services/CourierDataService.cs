@@ -1,6 +1,9 @@
-﻿using parcelmate.Models;
+﻿using Newtonsoft.Json;
+using parcelmate.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,32 +12,31 @@ namespace parcelmate.Services
 {
     public class CourierDataService
     {
-        private readonly MockDataStore _mockDataStore;
-
+        private DataModel couriers;
         public CourierDataService()
         {
-            _mockDataStore = new MockDataStore();
         }
-
-        public async Task<bool> SaveCourierAsync(Courier courier)
+        public DataModel InitializeData()
         {
             try
             {
-                await _mockDataStore.AddItemAsync(courier);
-                return true;
+                couriers = JsonConvert.DeserializeObject<DataModel>("{\n  \"couriers\": [\n    {\n      \"id\": 1,\n      \"firstName\": \"Adrian\",\n      \"surname\":\"Trifoi\",\n      \"age\": \"28\",\n      \"driverLicenseExpiryDate\":\"12-12-2030\",\n      \"driverLicenseCategory\":\"B\",\n      \"isCertified\": \"false\",\n      \"isAllowedDangerousGoods\": \"false\"\n    },\n    {\n      \"id\": 2,\n      \"firstName\": \"Mihai\",\n      \"surname\":\"Tomescu\",\n      \"age\": \"35\",\n      \"driverLicenseExpiryDate\":\"12-12-2027\",\n      \"driverLicenseCategory\":\"B, C, D\",\n      \"isCertified\": \"false\",\n      \"isAllowedDangerousGoods\": \"true\"\n    },\n    {\n      \"id\": 3,\n      \"firstName\": \"Dan\",\n      \"surname\":\"Baghilovici\",\n      \"age\": \"28\",\n      \"driverLicenseExpiryDate\":\"12-12-2024\",\n      \"driverLicenseCategory\":\"B, C\",\n      \"isCertified\": \"false\",\n      \"isAllowedDangerousGoods\": \"false\"\n    }\n  ]\n}");
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                return false;
             }
+
+            return couriers;
         }
 
-        public Courier GetLastSavedCourier()
+        public Courier GetCourierById(int courierId)
         {
-            IEnumerable<Courier> couriers = _mockDataStore.GetItemsAsync().Result;
+            if (couriers != null && couriers.Couriers != null)
+            {
+                return couriers.Couriers.Find(courier => courier.id == courierId);
+            }
 
-
-            return couriers?.LastOrDefault();
+            return null;
         }
     }
 }

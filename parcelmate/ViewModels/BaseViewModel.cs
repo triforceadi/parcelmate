@@ -10,7 +10,6 @@ namespace parcelmate.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Courier> DataStore => DependencyService.Get<IDataStore<Courier>>();
 
         private bool isLoggedIn;
 

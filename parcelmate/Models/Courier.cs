@@ -4,9 +4,9 @@ namespace parcelmate.Models
 {
     public class Courier
     {
-        public string id { get; set; }
+        public int id { get; set; }
         public string firstName { get; set; }
-        public string lastName { get; set; }
+        public string surname { get; set; }
         public string age { get; set; }
         public string driverLicenseExpiryDate { get; set; }
         public string driverLicenseCategory { get; set; }

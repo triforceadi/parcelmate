@@ -19,6 +19,8 @@ namespace parcelmate.Views
     {
         private AuthenticationService authService;
         private CourierDataService courierDataService;
+        private string username;
+        private string password;
         public CourierInfoViewModel ViewModel
         {
             get { return (CourierInfoViewModel)BindingContext; }
@@ -47,15 +49,20 @@ namespace parcelmate.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            PopulateFields();
+            courierDataService.InitializeData();
+            authService.InitializeData();
+            if (Preferences.Get(AppConstants.IsLoggedInKey, true))
+            {
+                PopulateFields();
+            }
         }
 
         private void OnLoginClicked(object sender, EventArgs e)
         {
-            string username = UsernameEntry.Text;
-            string password = PasswordEntry.Text;
+            username = UsernameEntry.Text;
+            password = PasswordEntry.Text;
 
-            bool isAuthenticated = authService.AuthenticateUser(username, password);
+        bool isAuthenticated = authService.AuthenticateUser(username, password);
 
             if (isAuthenticated)
             {
@@ -63,11 +70,12 @@ namespace parcelmate.Views
                 DisplayAlert("Login", "Login successful", "OK");
                 LoginFields.IsVisible = false;
                 CourierDetails.IsVisible = true;
+                PopulateFields();
 
             }
             else
             {
-                DisplayAlert("Error", "Username and password are required", "OK");
+                DisplayAlert("Error", "Invalid username or password", "OK");
             }
         }
 
@@ -84,6 +92,13 @@ namespace parcelmate.Views
                     UsernameEntry.Text = string.Empty;
                     PasswordEntry.Text = string.Empty;
                     CourierDetails.IsVisible = false;
+                    FirstName.Text = string.Empty;
+                    LastName.Text = string.Empty;
+                    Age.Text = string.Empty;
+                    DriverLicenseExpiryDate.Text = string.Empty;
+                    DriverLicenseCategory.Text = string.Empty;
+                    IsCertified.Text = string.Empty;
+                    IsDangerousGoodsAllowed.Text = string.Empty;
                 }
             }
             else
@@ -95,43 +110,58 @@ namespace parcelmate.Views
 
         private async void OnSaveClicked(object sender, EventArgs e)
         {
-            Courier courier = new Courier()
-            {
-                firstName = FirstName.Text,
-                lastName = LastName.Text,
-                age = Age.Text,
-                driverLicenseExpiryDate = DriverLicenseExpiryDate.Text,
-                driverLicenseCategory = DriverLicenseCategory.Text,
-                isAllowedDangerousGoods = IsDangerousGoodsAllowed.Text,
-                isCertified = IsCertified.Text,
-            };
+           
+        }
 
-            bool isSaved = await courierDataService.SaveCourierAsync(courier);
+        private void PopulateFields(object sender, EventArgs e)
+        {
+            if (Preferences.Get(AppConstants.IsLoggedInKey, true))
+            {
+                try
+                {
+                    int userId = authService.ReturnUserIdByUsername(username);
+                    Courier courier = courierDataService.GetCourierById(userId);
 
-            if (isSaved)
-            {
-                await DisplayAlert("Save", "Data saved successfully", "OK");
-            }
-            else
-            {
-                await DisplayAlert("Error", "Failed to save data", "OK");
+                    FirstName.Text = courier.firstName;
+                    LastName.Text = courier.surname;
+                    Age.Text = courier.age;
+                    DriverLicenseExpiryDate.Text = courier.driverLicenseExpiryDate;
+                    DriverLicenseCategory.Text = courier.driverLicenseCategory;
+                    IsCertified.Text = courier.isCertified;
+                    IsDangerousGoodsAllowed.Text = courier.isAllowedDangerousGoods;
+
+                    DisplayAlert("Success", "Data has been refreshed", "OK");
+                }
+                catch (Exception ex)
+                {
+                    DisplayAlert("Error", "Could not refresh data, try logging in again", "OK");
+                }
+
+
             }
         }
 
         private void PopulateFields()
         {
-            Courier lastSavedCourier = courierDataService.GetLastSavedCourier();
-
-            if (lastSavedCourier != null)
+            if (Preferences.Get(AppConstants.IsLoggedInKey, true))
             {
-                // Populate the fields with the retrieved data
-                FirstName.Text = lastSavedCourier.firstName;
-                LastName.Text = lastSavedCourier.lastName;
-                Age.Text = lastSavedCourier.age;
-                DriverLicenseExpiryDate.Text = lastSavedCourier.driverLicenseExpiryDate;
-                DriverLicenseCategory.Text = lastSavedCourier.driverLicenseCategory;
-                IsDangerousGoodsAllowed.Text = lastSavedCourier.isAllowedDangerousGoods;
-                IsCertified.Text = lastSavedCourier.isCertified;
+                try
+                {
+                    int userId = authService.ReturnUserIdByUsername(username);
+                Courier courier = courierDataService.GetCourierById(userId);
+
+                FirstName.Text = courier.firstName;
+                LastName.Text = courier.surname;
+                Age.Text = courier.age;
+                DriverLicenseExpiryDate.Text = courier.driverLicenseExpiryDate;
+                DriverLicenseCategory.Text = courier.driverLicenseCategory;
+                IsCertified.Text = courier.isCertified;
+                IsDangerousGoodsAllowed.Text = courier.isAllowedDangerousGoods;
+                }
+                catch (Exception ex)
+                {
+                    DisplayAlert("Error", "Could not populate data, try logging in again", "OK");
+                }
             }
         }
     }
