@@ -33,13 +33,10 @@ namespace parcelmate.Views
 
             scannerPage.OnScanned += (s, result) =>
             {
-                // Handle the scanned result in the main page
                 DisplayAlert("Scanned", $"Barcode: {result}", "OK");
                 Vibration.Vibrate();
                 scanResults.Insert(0, result);
             };
-
-            // Navigate to the ScannerPage
             await Navigation.PushAsync(scannerPage);
         }
 
