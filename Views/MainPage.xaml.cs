@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing.Net.Mobile.Forms;
@@ -34,6 +35,7 @@ namespace parcelmate.Views
             {
                 // Handle the scanned result in the main page
                 DisplayAlert("Scanned", $"Barcode: {result}", "OK");
+                Vibration.Vibrate();
                 scanResults.Insert(0, result);
             };
 
