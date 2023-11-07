@@ -4,12 +4,9 @@
              x:Class="parcelmate.Views.ScannerPage">
     <ContentPage.Content>
         <StackLayout>
-            <!-- ZXingScannerView -->
             <zxing:ZXingScannerView x:Name="scannerView" />
-
-            <!-- Custom Overlay -->
             <Grid>
-                <BoxView Color="Transparent" Opacity="0.5">
+                <BoxView Opacity="0.5">
                     <BoxView.Color>
                         <OnPlatform x:TypeArguments="Color">
                             <On Platform="Android" Value="Black" />
@@ -21,10 +18,7 @@
                     <Label Text="Align barcode within the frame" HorizontalOptions="Center" TextColor="White" />
                     <Label Text="Scanning will happen automatically" HorizontalOptions="Center" TextColor="White" />
                 </StackLayout>
-                <!-- You can add more elements for customization (e.g., a red line) -->
             </Grid>
-
-            <!-- Back Button -->
             <Button Text="Back" Clicked="OnBackButtonClicked" />
         </StackLayout>
     </ContentPage.Content>

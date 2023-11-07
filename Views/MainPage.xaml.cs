@@ -1,4 +1,5 @@
 ﻿using parcelmate.Constants;
+using parcelmate.Services;
 using parcelmate.ViewModels;
 using System;
 using System.Collections.ObjectModel;
@@ -15,9 +16,11 @@ namespace parcelmate.Views
     public partial class MainPage : ContentPage
     {
        readonly ObservableCollection<string> scanResults = new ObservableCollection<string>();
+        private BarcodeService barcodeService;
         public MainPage()
         {
             InitializeComponent();
+            barcodeService = new BarcodeService();
             scanResultsListView.ItemsSource = scanResults;
 
             MessagingCenter.Subscribe<ScannerPage, string>(this, "ScanResult", (sender, result) =>
@@ -48,22 +51,6 @@ namespace parcelmate.Views
             }
         }
 
-        private async void OnTappedScannedBarcode(object sender, EventArgs e)
-        {
-            if (e is ItemTappedEventArgs eventArgs)
-            {
-                if (eventArgs.Item is string barcode)
-                {
-                    var action = await DisplayActionSheet("Mark as delivered?", "Cancel", "Yes");
-
-                    if (action == "Yes")
-                    {
-                        RemoveScannedBarcode(barcode);
-                    }
-                    
-                }
-            }
-        }
         private void RemoveScannedBarcode(string barcode)
         {
             if (scanResults.Contains(barcode))
@@ -74,17 +61,28 @@ namespace parcelmate.Views
         private async void OnDeliveredButtonClicked(object sender, EventArgs e)
         {
             var button = sender as Button;
+
             if (button != null)
             {
-                var itemToRemove = button.CommandParameter as string;
-                if (itemToRemove != null)
+                var itemToDeliver = button.CommandParameter as string;
+                bool isValidBarcode = barcodeService.VerifyBarcode(itemToDeliver);
+                if (itemToDeliver != null)
                 {
-                    var action = await DisplayActionSheet("Are you sure to mark it as delivered?", "No", "Yes");
-
-                    if (action == "Yes")
+                    if (isValidBarcode)
                     {
-                        RemoveScannedBarcode(itemToRemove);
+                        var action = await DisplayActionSheet("Are you sure to mark it as delivered?", "No", "Yes");
+
+                        if (action == "Yes")
+                        {
+                            RemoveScannedBarcode(itemToDeliver);
+                        }
                     }
+                    else if (!isValidBarcode)
+                    {
+                        await DisplayAlert("Invalid Barcode", "This barcode is not valid for delivery", "OK");
+                    }
+
+
                 }
             }
         }

@@ -39,7 +39,7 @@
                     </Frame>
                     <Button Text="Login" Clicked="OnLoginClicked" HorizontalOptions="FillAndExpand" Margin="130,20,130,0" TextColor="White" CornerRadius="15"/>
                 </StackLayout>
-                <StackLayout x:Name="CourierDetails" IsVisible="False">
+                <StackLayout x:Name="CourierDetails" IsVisible="False" Orientation="Vertical">
                     <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
                         <Entry Placeholder="First name" x:Name="FirstName" BackgroundColor="{StaticResource Primary}" />
                     </Frame>
@@ -62,9 +62,9 @@
                         <Entry Placeholder="Allowed to carry dangerous goods?" x:Name="IsDangerousGoodsAllowed" BackgroundColor="{StaticResource Primary}"/>
                     </Frame>
                      <StackLayout Margin="0,0,0,0">
-                        <StackLayout Orientation="Horizontal">
-                            <Button Text="Save" Clicked="OnSaveClicked" HorizontalOptions="FillAndExpand" Margin="50,20,20,0" CornerRadius="10"/>
-                            <Button Text="Sign Out" Clicked="OnSignOutButtonClicked" HorizontalOptions="FillAndExpand" Margin="70,20,70,0" CornerRadius="10"/>
+                        <StackLayout Orientation="Horizontal" Padding="40">
+                            <Button Text="Sign Out" Clicked="OnSignOutButtonClicked" HorizontalOptions="FillAndExpand" Margin="00,00,00,0" CornerRadius="15"/>
+                            <Button Text="Save" Clicked="OnSaveClicked" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" CornerRadius="15"/>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>

@@ -47,7 +47,6 @@
             <StackLayout Orientation="Vertical" Padding="15,8,15,15" Spacing="10">
                 <ListView x:Name="scanResultsListView" 
                   HasUnevenRows="True"
-                  ItemTapped="OnTappedScannedBarcode"
                   ItemsSource="{Binding ScanResults}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
