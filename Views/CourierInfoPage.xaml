@@ -11,10 +11,6 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Sign Out" Clicked="OnSignOutToolbarItemClicked"/>
-    </ContentPage.ToolbarItems>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -27,7 +23,7 @@
                            VerticalOptions="Fill" 
                            HorizontalOptions="Fill" 
                            Aspect="AspectFill" 
-                           HeightRequest="205"
+                           HeightRequest="170"
                            WidthRequest="400"
                            />
                 </ContentView>
@@ -35,10 +31,10 @@
             <StackLayout VerticalOptions="CenterAndExpand" Padding="20">
                 <StackLayout x:Name="LoginFields">
                     <Label Text="Login" FontSize="24" HorizontalOptions="CenterAndExpand" Margin="0,0,0,20"/>
-                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
+                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="60,0,60,10">
                         <Entry Placeholder="Username" x:Name="UsernameEntry" BackgroundColor="{StaticResource Primary}" />
                     </Frame>
-                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
+                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="60,0,60,10">
                         <Entry Placeholder="Password" x:Name="PasswordEntry" IsPassword="True" BackgroundColor="{StaticResource Primary}"/>
                     </Frame>
                     <Button Text="Login" Clicked="OnLoginClicked" HorizontalOptions="FillAndExpand" Margin="130,20,130,0" TextColor="White" CornerRadius="15"/>
@@ -65,7 +61,12 @@
                     <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
                         <Entry Placeholder="Allowed to carry dangerous goods?" x:Name="IsDangerousGoodsAllowed" BackgroundColor="{StaticResource Primary}"/>
                     </Frame>
-                    <Button Text="Save" Clicked="OnSaveClicked" HorizontalOptions="FillAndExpand" Margin="140,20,140,0" CornerRadius="10"/>
+                     <StackLayout Margin="0,0,0,0">
+                        <StackLayout Orientation="Horizontal">
+                            <Button Text="Save" Clicked="OnSaveClicked" HorizontalOptions="FillAndExpand" Margin="50,20,20,0" CornerRadius="10"/>
+                            <Button Text="Sign Out" Clicked="OnSignOutButtonClicked" HorizontalOptions="FillAndExpand" Margin="70,20,70,0" CornerRadius="10"/>
+                        </StackLayout>
+                    </StackLayout>
                 </StackLayout>
             </StackLayout>
         </StackLayout>

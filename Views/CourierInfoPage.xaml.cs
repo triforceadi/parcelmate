@@ -1,4 +1,5 @@
-﻿using parcelmate.Models;
+﻿using parcelmate.Constants;
+using parcelmate.Models;
 using parcelmate.Services;
 using parcelmate.ViewModels;
 using parcelmate.Views;
@@ -16,8 +17,8 @@ namespace parcelmate.Views
 {
     public partial class CourierInfoPage : ContentPage
     {
-        private const string IsLoggedInKey = "IsLoggedIn";
         private AuthenticationService authService;
+        private CourierDataService courierDataService;
         public CourierInfoViewModel ViewModel
         {
             get { return (CourierInfoViewModel)BindingContext; }
@@ -28,15 +29,26 @@ namespace parcelmate.Views
         {
             InitializeComponent();
             authService = new AuthenticationService();
+            courierDataService = new CourierDataService();
             ViewModel = new CourierInfoViewModel();
-            if (Preferences.Get(IsLoggedInKey, true))
+            if (Settings.FirstRun)
+            {
+                Preferences.Set(AppConstants.IsLoggedInKey, false);
+                Settings.FirstRun = false;
+            }
+            if (Preferences.Get(AppConstants.IsLoggedInKey, true))
             {
                 LoginFields.IsVisible = false;
                 CourierDetails.IsVisible = true;
             }
+
         }
 
-        MockDataStore _mockDataStore = new MockDataStore();
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            PopulateFields();
+        }
 
         private void OnLoginClicked(object sender, EventArgs e)
         {
@@ -47,7 +59,7 @@ namespace parcelmate.Views
 
             if (isAuthenticated)
             {
-                Preferences.Set(IsLoggedInKey, true);
+                Preferences.Set(AppConstants.IsLoggedInKey, true);
                 DisplayAlert("Login", "Login successful", "OK");
                 LoginFields.IsVisible = false;
                 CourierDetails.IsVisible = true;
@@ -59,9 +71,9 @@ namespace parcelmate.Views
             }
         }
 
-        private async void OnSignOutToolbarItemClicked(object sender, EventArgs e)
+        private async void OnSignOutButtonClicked(object sender, EventArgs e)
         {
-            if(Preferences.Get(IsLoggedInKey, true))
+            if(Preferences.Get(AppConstants.IsLoggedInKey, true))
             {
                 var action = await DisplayActionSheet("Are you sure you want to sign out?", "No", "Yes");
 
@@ -76,12 +88,12 @@ namespace parcelmate.Views
             }
             else
             {
-                DisplayAlert("Sign out","You must be logged in first", "OK");
+                await DisplayAlert("Sign out","You must be logged in first", "OK");
             }
 
         }
 
-        private void OnSaveClicked(object sender, EventArgs e)
+        private async void OnSaveClicked(object sender, EventArgs e)
         {
             Courier courier = new Courier()
             {
@@ -94,8 +106,33 @@ namespace parcelmate.Views
                 isCertified = IsCertified.Text,
             };
 
-            _mockDataStore.AddItemAsync(courier);
-            DisplayAlert("Save", "Data saved successfully", "OK");
+            bool isSaved = await courierDataService.SaveCourierAsync(courier);
+
+            if (isSaved)
+            {
+                await DisplayAlert("Save", "Data saved successfully", "OK");
+            }
+            else
+            {
+                await DisplayAlert("Error", "Failed to save data", "OK");
+            }
+        }
+
+        private void PopulateFields()
+        {
+            Courier lastSavedCourier = courierDataService.GetLastSavedCourier();
+
+            if (lastSavedCourier != null)
+            {
+                // Populate the fields with the retrieved data
+                FirstName.Text = lastSavedCourier.firstName;
+                LastName.Text = lastSavedCourier.lastName;
+                Age.Text = lastSavedCourier.age;
+                DriverLicenseExpiryDate.Text = lastSavedCourier.driverLicenseExpiryDate;
+                DriverLicenseCategory.Text = lastSavedCourier.driverLicenseCategory;
+                IsDangerousGoodsAllowed.Text = lastSavedCourier.isAllowedDangerousGoods;
+                IsCertified.Text = lastSavedCourier.isCertified;
+            }
         }
     }
 }

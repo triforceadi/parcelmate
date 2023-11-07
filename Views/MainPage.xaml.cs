@@ -1,4 +1,5 @@
-﻿using parcelmate.ViewModels;
+﻿using parcelmate.Constants;
+using parcelmate.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -29,15 +30,22 @@ namespace parcelmate.Views
 
         private async void OnOpenScannerButtonClicked(object sender, EventArgs e)
         {
-            var scannerPage = new ScannerPage();
-
-            scannerPage.OnScanned += (s, result) =>
+            if (Preferences.Get(AppConstants.IsLoggedInKey, true))
             {
-                DisplayAlert("Scanned", $"Barcode: {result}", "OK");
-                Vibration.Vibrate();
-                scanResults.Insert(0, result);
-            };
-            await Navigation.PushAsync(scannerPage);
+                var scannerPage = new ScannerPage();
+
+                scannerPage.OnScanned += (s, result) =>
+                {
+                    DisplayAlert("Scanned", $"Barcode: {result}", "OK");
+                    Vibration.Vibrate();
+                    scanResults.Insert(0, result);
+                };
+                await Navigation.PushAsync(scannerPage);
+            }
+            else
+            {
+                await DisplayAlert("Currently logged out", "You must be logged in to scan a parcel", "OK");
+            }
         }
 
         private async void OnTappedScannedBarcode(object sender, EventArgs e)

@@ -1,4 +1,5 @@
-﻿using parcelmate.Models;
+﻿using parcelmate.Constants;
+using parcelmate.Models;
 using parcelmate.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -12,7 +13,6 @@ namespace parcelmate.ViewModels
 {
     public class CourierInfoViewModel : BaseViewModel
     {
-        private const string IsLoggedInKey = "IsLoggedIn";
         private bool isLoggedIn;
 
         public bool IsLoggedIn
@@ -30,12 +30,12 @@ namespace parcelmate.ViewModels
 
         public CourierInfoViewModel()
         {
-            IsLoggedIn = Preferences.Get(IsLoggedInKey, true);
+            IsLoggedIn = Preferences.Get(AppConstants.IsLoggedInKey, true);
         }
 
         public void SignOut()
         {
-            Preferences.Set(IsLoggedInKey, false);
+            Preferences.Set(AppConstants.IsLoggedInKey, false);
             IsLoggedIn = false;
         }
     }
