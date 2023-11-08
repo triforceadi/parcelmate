@@ -1,4 +1,5 @@
-﻿using System;
+﻿using parcelmate.ViewModels;
+using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -9,10 +10,11 @@ namespace parcelmate.Views
     public partial class ScannerPage : ContentPage
     {
         public event EventHandler<string> OnScanned;
-
+        private ScannedBarcodesViewModel _scannedBarcodesViewModel;
         public ScannerPage()
         {
             InitializeComponent();
+            _scannedBarcodesViewModel = DependencyService.Resolve<ScannedBarcodesViewModel>();
         }
 
         protected override void OnAppearing()
@@ -38,7 +40,8 @@ namespace parcelmate.Views
                         await DisplayAlert("Scan Value", result.Text, "OK");
                         scannerView.IsScanning = false;
                         await Navigation.PopAsync();
-                        MessagingCenter.Send(this, "ScanResult", result.Text);
+                        _scannedBarcodesViewModel.AddNew(result.Text);
+                       // MessagingCenter.Send(this, "ScanResult", result.Text);
                     }
                 });
             };

@@ -47,21 +47,22 @@
                     FontAttributes="Bold"
                     Margin="45,5,0,0" FontSize="Medium"/>
         </StackLayout>
-        <ScrollView Grid.Row="1">
+        <ScrollView Grid.Row="1"  x:Name="form" >
             <StackLayout Orientation="Vertical" Padding="38,8,15,15" Spacing="10">
                 <ListView x:Name="scanResultsListView" 
                   HasUnevenRows="True"
-                  ItemsSource="{Binding ScanResults}">
+                  ItemsSource="{Binding ScannedBarcodesViewModel.Barcodes}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <StackLayout Orientation="Horizontal" Padding="9">
+                            <ViewCell x:Name="cell">
+                                <StackLayout Orientation="Horizontal" Padding="9" >
                                     <Label Text="{Binding}" VerticalOptions="CenterAndExpand" TextColor="Black" FontSize="Small"/>
-                                    <Button Text="Delivered" Clicked="OnDeliveredButtonClicked"
-                                            CommandParameter="{Binding .}" CornerRadius="15"
+                                    <Button Text="Delivered"  
+                                            Command="{Binding Path=BindingContext.DeliveredCommand, Source={x:Reference Name=form }}"
+                                            CommandParameter="{Binding}" CornerRadius="15"
                                             WidthRequest="100" HeightRequest="38" BackgroundColor="Green"/>
-                                    <Button Text="Remove" Clicked="OnRemoveButtonClicked" 
-                                            CommandParameter="{Binding .}" CornerRadius="15" 
+                                    <Button Text="Remove" Command="{Binding Path=BindingContext.RemoveCommand, Source={x:Reference Name=form }}"
+                                            CommandParameter="{Binding}" CornerRadius="15" 
                                             WidthRequest="85" HeightRequest="38" BackgroundColor="DarkRed"/>
                                 </StackLayout>
                             </ViewCell>

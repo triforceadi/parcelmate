@@ -23,7 +23,7 @@ namespace parcelmate.Views
         public AvailableDeliveriesPage()
         {
             InitializeComponent();
-            barcodeService = new BarcodeService();
+            barcodeService = DependencyService.Resolve<BarcodeService>();
             barcodesAvailableListView.ItemsSource = barcodeService.AvailableBarcodes();
             BindingContext = viewModel;
         }

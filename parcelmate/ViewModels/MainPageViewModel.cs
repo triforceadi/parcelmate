@@ -1,41 +1,72 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using parcelmate.Services;
+using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace parcelmate.ViewModels
 {
-    public class MainPageViewModel : BaseViewModel
+    public partial class MainPageViewModel : ObservableObject
     {
-        private ObservableCollection<string> _scanResults;
+        [ObservableProperty]
+        private ScannedBarcodesViewModel _scannedBarcodesViewModel;
+        [ObservableProperty]
         private bool _showButtons;
-        public ObservableCollection<string> ScanResults
-        {
-            get => _scanResults;
-            set
-            {
-                _scanResults = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ScanResultsVisible));
-            }
-        }
-
-        public bool ScanResultsVisible => _scanResults.Count > 0;
+        private BarcodeService _barcodeService;
 
         public MainPageViewModel()
         {
-            _scanResults = new ObservableCollection<string>();
+            _scannedBarcodesViewModel = DependencyService.Resolve<ScannedBarcodesViewModel>();
+            _barcodeService = DependencyService.Resolve<BarcodeService>();
         }
-        public bool ShowButtons
+        [RelayCommand]
+        private async Task Delivered(object button)
         {
-            get => _showButtons;
-            set
+
+            if (button != null)
             {
-                _showButtons = value;
-                OnPropertyChanged();
+                var itemToDeliver = (string)button;
+                bool isValidBarcode = _barcodeService.VerifyBarcode(itemToDeliver);
+                if (itemToDeliver != null)
+                {
+                    if (isValidBarcode)
+                    {
+                        var action = await Application.Current.MainPage.DisplayActionSheet("Are you sure to mark it as delivered?", "No", "Yes");
+
+                        if (action == "Yes")
+                        {
+                            _scannedBarcodesViewModel.RemoveIfExist(itemToDeliver);
+                        }
+                    }
+                    else if (!isValidBarcode)
+                    {
+                        await Application.Current.MainPage.DisplayActionSheet("Invalid Barcode", "This barcode is not valid for delivery", "OK");
+                    }
+
+
+                }
             }
         }
+        [RelayCommand]
+        private async Task Remove(object button)
+        {
+            if (button != null)
+            {
+                var itemToRemove = (string)button;
+                if (itemToRemove != null)
+                {
+                    var action = await Application.Current.MainPage.DisplayActionSheet("Remove this barcode?", "No", "Yes");
 
+                    if (action == "Yes")
+                    {
+                        _scannedBarcodesViewModel.RemoveIfExist(itemToRemove);
+                    }
+                }
+            }
+        }
     }
 }

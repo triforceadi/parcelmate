@@ -60,12 +60,26 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <!-- First Name -->
-                    <Frame BackgroundColor="{StaticResource Primary}" CornerRadius="15" Padding="10" Margin="20,10,100,0" Grid.Column="0" Grid.Row="0">
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start"  HeightRequest="25">
-                            <Label Text="First Name" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="0,00,120,0"/>
-                            <Entry Placeholder="First name" x:Name="FirstName" BackgroundColor="Transparent" HorizontalOptions="End" WidthRequest="100" VerticalOptions="Center" />
-                        </StackLayout>
-                    </Frame>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="First Name" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="StartAndExpand" Margin="25,0,3,0" Grid.Column="0"/>
+                        <Frame BackgroundColor="{StaticResource Primary}" CornerRadius="15" Padding="00" Margin="10,0,120,0" Grid.Column="1" Grid.Row="0">
+                            <Entry  x:Name="FirstName" TextColor="White" BackgroundColor="Transparent" Margin="0,0,0,0" HorizontalOptions="CenterAndExpand"  VerticalOptions="End" Grid.Column="1" />
+                        </Frame>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="First Name" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="StartAndExpand" Margin="25,0,3,0" Grid.Column="0"/>
+                        <Frame BackgroundColor="{StaticResource Primary}" CornerRadius="15" Padding="00" Margin="10,0,120,0" Grid.Column="1" Grid.Row="1">
+                            <Entry  x:Name="LastName" TextColor="White" BackgroundColor="Transparent" Margin="0,0,0,0" HorizontalOptions="CenterAndExpand"  VerticalOptions="End" Grid.Column="1" />
+                        </Frame>
+                    </Grid>
 
                     <!-- Last Name -->
                     <Frame BackgroundColor="{StaticResource Primary}" CornerRadius="15" Padding="10" Margin="20,5,100,0" Grid.Column="0" Grid.Row="1">

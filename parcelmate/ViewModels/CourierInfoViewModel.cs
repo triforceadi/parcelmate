@@ -35,7 +35,7 @@ namespace parcelmate.ViewModels
         private void SignOut()
         {
             IsLoggedIn = false;
-            //Preferences.Set(AppConstants.IsLoggedInKey, false);
+            Preferences.Set(AppConstants.IsLoggedInKey, false);
             //IsLoggedIn = false;
         }
         [RelayCommand]
@@ -47,6 +47,7 @@ namespace parcelmate.ViewModels
                 if(auth == true)
                 {
                     IsLoggedIn = true;
+                    Preferences.Set(AppConstants.IsLoggedInKey, true);
                 }
             }
         }

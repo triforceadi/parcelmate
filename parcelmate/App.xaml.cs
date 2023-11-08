@@ -1,4 +1,5 @@
 ﻿using parcelmate.Services;
+using parcelmate.ViewModels;
 using parcelmate.Views;
 using System;
 using Xamarin.Forms;
@@ -14,8 +15,10 @@ namespace parcelmate
         public App()
         {
             InitializeComponent();
+            DependencyService.Register<ScannedBarcodesViewModel>();
             DependencyService.Register<AuthenticationService>();
             DependencyService.Register<CourierDataService>();
+            DependencyService.Register<BarcodeService>();
             MainPage = new AppShell();
         }
 
