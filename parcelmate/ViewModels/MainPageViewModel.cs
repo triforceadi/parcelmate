@@ -36,5 +36,6 @@ namespace parcelmate.ViewModels
                 OnPropertyChanged();
             }
         }
+
     }
 }

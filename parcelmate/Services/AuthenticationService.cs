@@ -12,6 +12,7 @@ namespace parcelmate.Services
         private DataModel users;
         public AuthenticationService()
         {
+            InitializeData();
         }
         public DataModel InitializeData()
         {

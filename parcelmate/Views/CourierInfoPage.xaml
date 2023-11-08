@@ -4,7 +4,9 @@
              x:Class="parcelmate.Views.CourierInfoPage"
              xmlns:vm="clr-namespace:parcelmate.ViewModels"
              Title="Courier Info">
-
+    <ContentPage.BindingContext>
+        <vm:CourierInfoViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#FFFFFF</Color>
@@ -29,17 +31,21 @@
                 </ContentView>
             </StackLayout>
             <StackLayout VerticalOptions="CenterAndExpand" Padding="20">
-                <StackLayout x:Name="LoginFields">
+                <StackLayout x:Name="LoginFields" IsVisible="{Binding IsLoggedIn, Converter={StaticResource NegateBool}}">
                     <Label Text="Login" FontSize="24" HorizontalOptions="CenterAndExpand" Margin="0,0,0,20"/>
                     <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="60,0,60,10">
-                        <Entry Placeholder="Username" x:Name="UsernameEntry" BackgroundColor="{StaticResource Primary}" />
+                        <Entry Placeholder="Username" x:Name="UsernameEntry" 
+                               BackgroundColor="{StaticResource Primary}"
+                               Text="{Binding User}"/>
                     </Frame>
                     <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="60,0,60,10">
-                        <Entry Placeholder="Password" x:Name="PasswordEntry" IsPassword="True" BackgroundColor="{StaticResource Primary}"/>
+                        <Entry Placeholder="Password" x:Name="PasswordEntry" IsPassword="True" BackgroundColor="{StaticResource Primary}"
+                               Text="{Binding Password}"/>
                     </Frame>
-                    <Button Text="Login" Clicked="OnLoginClicked" HorizontalOptions="FillAndExpand" Margin="130,20,130,0" TextColor="White" CornerRadius="15"/>
+                    <Button Text="Login" 
+                            Command="{Binding SignInCommand}" HorizontalOptions="FillAndExpand" Margin="130,20,130,0" TextColor="White" CornerRadius="15"/>
                 </StackLayout>
-                <Grid x:Name="CourierDetails" IsVisible="False">
+                <Grid x:Name="CourierDetails" IsVisible="{Binding IsLoggedIn}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -111,7 +117,7 @@
                 </Grid>
                 <StackLayout Margin="0,0,0,0">
                     <StackLayout Orientation="Horizontal" Padding="45" HorizontalOptions="CenterAndExpand" >
-                        <Button Text="Sign Out" Clicked="OnSignOutButtonClicked"  Margin="00,00,00,0" CornerRadius="15"/>
+                        <Button Text="Sign Out" IsVisible="{Binding IsLoggedIn}" Command="{Binding SignOutCommand}"  Margin="00,00,00,0" CornerRadius="15"/>
                         <Button Text="Refresh" Clicked="PopulateFields" Margin="0,0,0,0" CornerRadius="15"/>
                     </StackLayout>
                 </StackLayout>

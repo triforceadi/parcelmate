@@ -87,7 +87,7 @@ namespace parcelmate.Views
 
                 if (action == "Yes")
                 {
-                    ViewModel.SignOut();
+                   // ViewModel.SignOut();
                     LoginFields.IsVisible = true;
                     UsernameEntry.Text = string.Empty;
                     PasswordEntry.Text = string.Empty;

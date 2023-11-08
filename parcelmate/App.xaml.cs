@@ -14,6 +14,8 @@ namespace parcelmate
         public App()
         {
             InitializeComponent();
+            DependencyService.Register<AuthenticationService>();
+            DependencyService.Register<CourierDataService>();
             MainPage = new AppShell();
         }
 
