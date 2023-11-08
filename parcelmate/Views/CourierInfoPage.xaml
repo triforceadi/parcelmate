@@ -39,33 +39,80 @@
                     </Frame>
                     <Button Text="Login" Clicked="OnLoginClicked" HorizontalOptions="FillAndExpand" Margin="130,20,130,0" TextColor="White" CornerRadius="15"/>
                 </StackLayout>
-                <StackLayout x:Name="CourierDetails" IsVisible="False" Orientation="Vertical">
-                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
-                        <Entry Placeholder="First name" x:Name="FirstName" BackgroundColor="{StaticResource Primary}" />
-                    </Frame>
-                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
-                        <Entry Placeholder="Last name" x:Name="LastName" BackgroundColor="{StaticResource Primary}"/>
-                    </Frame>
-                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
-                        <Entry Placeholder="Age" x:Name="Age" BackgroundColor="{StaticResource Primary}"/>
-                    </Frame>
-                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
-                        <Entry Placeholder="Driver License Expiry Date" x:Name="DriverLicenseExpiryDate" BackgroundColor="{StaticResource Primary}"/>
-                    </Frame>
-                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
-                        <Entry Placeholder="Driver License Category" x:Name="DriverLicenseCategory" BackgroundColor="{StaticResource Primary}"/>
-                    </Frame>
-                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
-                        <Entry Placeholder="Are you certified?" x:Name="IsCertified" BackgroundColor="{StaticResource Primary}"/>
-                    </Frame>
-                    <Frame BackgroundColor="#EFEFEF" CornerRadius="10" Padding="0" HeightRequest="40" Margin="40,0,40,10">
-                        <Entry Placeholder="Allowed to carry dangerous goods?" x:Name="IsDangerousGoodsAllowed" BackgroundColor="{StaticResource Primary}"/>
-                    </Frame>
-                     <StackLayout Margin="0,0,0,0">
-                        <StackLayout Orientation="Horizontal" Padding="45" HorizontalOptions="CenterAndExpand" >
-                            <Button Text="Sign Out" Clicked="OnSignOutButtonClicked"  Margin="00,00,00,0" CornerRadius="15"/>
-                            <Button Text="Refresh" Clicked="PopulateFields" Margin="0,0,0,0" CornerRadius="15"/>
+                <Grid x:Name="CourierDetails" IsVisible="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <!-- First Name -->
+                    <Frame BackgroundColor="{StaticResource Primary}" CornerRadius="15" Padding="10" Margin="20,10,100,0" Grid.Column="0" Grid.Row="0">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start"  HeightRequest="25">
+                            <Label Text="First Name" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="0,00,120,0"/>
+                            <Entry Placeholder="First name" x:Name="FirstName" BackgroundColor="Transparent" HorizontalOptions="End" WidthRequest="100" VerticalOptions="Center" />
                         </StackLayout>
+                    </Frame>
+
+                    <!-- Last Name -->
+                    <Frame BackgroundColor="{StaticResource Primary}" CornerRadius="15" Padding="10" Margin="20,5,100,0" Grid.Column="0" Grid.Row="1">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start"  HeightRequest="25">
+                            <Label Text="Last Name" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="0,00,120,0"/>
+                            <Entry Placeholder="Last name" x:Name="LastName" BackgroundColor="Transparent"  HorizontalOptions="End" WidthRequest="100" VerticalOptions="Center"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <!-- Age -->
+                    <Frame BackgroundColor="{StaticResource Primary}" CornerRadius="15" Padding="10" Margin="20,5,100,0" Grid.Column="0" Grid.Row="2">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start"  HeightRequest="25">
+                            <Label Text="Age" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="0,00,175,0"/>
+                            <Entry Placeholder="Age" x:Name="Age" BackgroundColor="Transparent" Grid.Column="1" Grid.Row="2" HorizontalOptions="End" WidthRequest="100" VerticalOptions="Center"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <!-- Driver License Expiry Date -->
+                    <Frame BackgroundColor="{StaticResource Primary}" CornerRadius="15" Padding="10" Margin="20,5,100,0" Grid.Column="0" Grid.Row="3">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start"  HeightRequest="25" >
+                            <Label Text="Driver License Expiry Date" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="0,00,120,0"/>
+                            <Entry Placeholder="Driver License Expiry Date" x:Name="DriverLicenseExpiryDate" BackgroundColor="Transparent" HorizontalOptions="End" WidthRequest="100" VerticalOptions="Center"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <!-- Driver License Category -->
+                    <Frame BackgroundColor="{StaticResource Primary}" CornerRadius="15" Padding="10" Margin="20,5,100,0" Grid.Column="0" Grid.Row="4">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start"  HeightRequest="25">
+                            <Label Text="Driver License Category" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="EndAndExpand"  Margin="0,00,120,0"/>
+                            <Entry Placeholder="Driver License Category" x:Name="DriverLicenseCategory" BackgroundColor="Transparent" HorizontalOptions="End" WidthRequest="100" VerticalOptions="Center"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <!-- Are you certified? -->
+                    <Frame BackgroundColor="{StaticResource Primary}" CornerRadius="15" Padding="10" Margin="20,5,100,0" Grid.Column="0" Grid.Row="5">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start"  HeightRequest="25">
+                            <Label Text="Are you certified?" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="EndAndExpand"  Margin="0,00,120,0" />
+                            <Entry Placeholder="Are you certified?" x:Name="IsCertified" BackgroundColor="Transparent" HorizontalOptions="End" WidthRequest="100" VerticalOptions="Center"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <!-- Allowed to carry dangerous goods? -->
+                    <Frame BackgroundColor="{StaticResource Primary}" CornerRadius="15" Padding="10" Margin="20,5,100,10" Grid.Column="0" Grid.Row="6">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start"  HeightRequest="25">
+                            <Label Text="Allowed to carry dangerous goods?" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="EndAndExpand" Margin="0,00,120,0" />
+                            <Entry Placeholder="Allowed to carry dangerous goods?" x:Name="IsDangerousGoodsAllowed" BackgroundColor="Transparent" HorizontalOptions="End" WidthRequest="100" VerticalOptions="Center" />
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+                <StackLayout Margin="0,0,0,0">
+                    <StackLayout Orientation="Horizontal" Padding="45" HorizontalOptions="CenterAndExpand" >
+                        <Button Text="Sign Out" Clicked="OnSignOutButtonClicked"  Margin="00,00,00,0" CornerRadius="15"/>
+                        <Button Text="Refresh" Clicked="PopulateFields" Margin="0,0,0,0" CornerRadius="15"/>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
