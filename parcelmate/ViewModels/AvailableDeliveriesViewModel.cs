@@ -1,4 +1,5 @@
-﻿using parcelmate.Constants;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using parcelmate.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using Xamarin.Forms;
 
 namespace parcelmate.ViewModels
 {
-    public class AvailableDeliveriesViewModel : ContentView
+    public partial class AvailableDeliveriesViewModel : ObservableObject
     {
         public AvailableDeliveriesViewModel()
         {

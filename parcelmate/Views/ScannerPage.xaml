@@ -4,22 +4,12 @@
              x:Class="parcelmate.Views.ScannerPage">
     <ContentPage.Content>
         <StackLayout>
-            <zxing:ZXingScannerView x:Name="scannerView" />
-            <Grid>
-                <BoxView Opacity="0.5">
-                    <BoxView.Color>
-                        <OnPlatform x:TypeArguments="Color">
-                            <On Platform="Android" Value="Black" />
-                            <On Platform="iOS" Value="White" />
-                        </OnPlatform>
-                    </BoxView.Color>
-                </BoxView>
-                <StackLayout VerticalOptions="Center">
-                    <Label Text="Align barcode within the frame" HorizontalOptions="Center" TextColor="White" />
-                    <Label Text="Scanning will happen automatically" HorizontalOptions="Center" TextColor="White" />
-                </StackLayout>
+            <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <zxing:ZXingScannerView x:Name="scannerView" />
+                <zxing:ZXingDefaultOverlay               
+                x:Name="scannerOverlay"                                                       
+                BottomText="Place the red line over the barcode you'd like to scan." />
             </Grid>
-            <Button Text="Back" Clicked="OnBackButtonClicked" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

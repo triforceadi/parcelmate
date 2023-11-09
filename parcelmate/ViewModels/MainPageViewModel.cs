@@ -39,7 +39,7 @@ namespace parcelmate.ViewModels
 
                         if (action == "Yes")
                         {
-                            _scannedBarcodesViewModel.RemoveIfExist(itemToDeliver);
+                            ScannedBarcodesViewModel.RemoveIfExist(itemToDeliver);
                         }
                     }
                     else if (!isValidBarcode)

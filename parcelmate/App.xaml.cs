@@ -1,7 +1,9 @@
-﻿using parcelmate.Services;
+﻿using parcelmate.Constants;
+using parcelmate.Services;
 using parcelmate.ViewModels;
 using parcelmate.Views;
 using System;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing;
@@ -19,11 +21,19 @@ namespace parcelmate
             DependencyService.Register<AuthenticationService>();
             DependencyService.Register<CourierDataService>();
             DependencyService.Register<BarcodeService>();
-            MainPage = new AppShell();
+            if (Preferences.Get(AppConstants.IsLoggedInKey, false))
+            {
+                MainPage = new NavigationPage(new LoginPage());
+            }
+            else
+            {
+                MainPage = new AppShell();
+            }
         }
 
         protected override void OnStart()
         {
+
         }
 
         protected override void OnSleep()

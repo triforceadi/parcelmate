@@ -14,7 +14,7 @@ using Xamarin.Forms;
 
 namespace parcelmate.ViewModels
 {
-    public partial class  CourierInfoViewModel : ObservableObject
+    public partial class CourierInfoViewModel : ObservableObject
     {
         private AuthenticationService _authService;
         private CourierDataService _courierDataService;
@@ -28,28 +28,15 @@ namespace parcelmate.ViewModels
         {
             _authService = DependencyService.Resolve<AuthenticationService>();
             _courierDataService = DependencyService.Resolve<CourierDataService>();
-           // IsLoggedIn = Preferences.Get(AppConstants.IsLoggedInKey, true);
         }
 
         [RelayCommand]
         private void SignOut()
         {
             IsLoggedIn = false;
-            Preferences.Set(AppConstants.IsLoggedInKey, false);
-            //IsLoggedIn = false;
+            Preferences.Set("IsLoggedInKey", false);
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
         }
-        [RelayCommand]
-        private void SignIn()
-        {
-            if(!string.IsNullOrWhiteSpace(User)&& !string.IsNullOrWhiteSpace(Password))
-            {
-                bool auth = _authService.AuthenticateUser(User, Password);
-                if(auth == true)
-                {
-                    IsLoggedIn = true;
-                    Preferences.Set(AppConstants.IsLoggedInKey, true);
-                }
-            }
-        }
+
     }
 }

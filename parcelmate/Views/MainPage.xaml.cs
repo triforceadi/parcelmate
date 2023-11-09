@@ -15,21 +15,11 @@ namespace parcelmate.Views
 {
     public partial class MainPage : ContentPage
     {
-       //readonly ObservableCollection<string> scanResults = new ObservableCollection<string>();
         private BarcodeService barcodeService;
         public MainPage()
         {
             InitializeComponent();
             barcodeService = new BarcodeService();
-            //scanResultsListView.ItemsSource = scanResults;
-            
-
-            //MessagingCenter.Subscribe<ScannerPage, string>(this, "ScanResult", (sender, result) =>
-            //{
-            //    scanResults.Add(result);
-            //});
-
-           // BindingContext = this;
         }
 
         protected override void OnAppearing()
@@ -57,7 +47,6 @@ namespace parcelmate.Views
                 {
                     DisplayAlert("Scanned", $"Barcode: {result}", "OK");
                     Vibration.Vibrate();
-                   // scanResults.Insert(0, result);
                 };
                 await Navigation.PushAsync(scannerPage);
             }

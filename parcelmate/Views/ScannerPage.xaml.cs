@@ -41,7 +41,6 @@ namespace parcelmate.Views
                         scannerView.IsScanning = false;
                         await Navigation.PopAsync();
                         _scannedBarcodesViewModel.AddNew(result.Text);
-                       // MessagingCenter.Send(this, "ScanResult", result.Text);
                     }
                 });
             };

@@ -17,7 +17,6 @@ namespace parcelmate.Views
     public partial class AvailableDeliveriesPage : ContentPage
     {
         private BarcodeService barcodeService;
-        readonly ObservableCollection<string> barcodesAvailable = new ObservableCollection<string>();
 
         private AvailableDeliveriesViewModel viewModel;
         public AvailableDeliveriesPage()
@@ -31,16 +30,6 @@ namespace parcelmate.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (Preferences.Get(AppConstants.IsLoggedInKey, true))
-            {
-                barcodesAvailableListView.IsVisible = true;
-                NotLoggedInDisplayText.IsVisible = false;
-            }
-            else
-            {
-                barcodesAvailableListView.IsVisible = false;
-                NotLoggedInDisplayText.IsVisible = true;
-            }
         }
     }
 }
